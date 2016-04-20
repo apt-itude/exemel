@@ -35,12 +35,7 @@ def _build_element_from_dict(name, dictionary, parent_namespace=None):
 
 
 def _make_tag(name, namespace):
-    if namespace is None:
-        tag = name
-    else:
-        tag = etree.QName(namespace, name)
-
-    return tag
+    return name if namespace is None else etree.QName(namespace, name)
 
 
 def _iter_items_except_namespace(dictionary):
