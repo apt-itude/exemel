@@ -359,6 +359,23 @@ class TextTestCase(xmlunittest.XmlTestCase):
 
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
+    def test_text_and_sub_elements(self):
+        actual_xml = dict2xml.build({
+            'alpha': None,
+            '#text': 'foo',
+            'bravo': None
+        })
+
+        expected_xml = """
+            <root>
+                foo
+                <alpha/>
+                <bravo/>
+            </root>
+            """
+
+        self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
+
 
 if __name__ == '__main__':
     unittest.main()
