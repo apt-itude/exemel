@@ -130,21 +130,25 @@ class ListTestCase(xmlunittest.XmlTestCase):
 
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
-    def test_simple_list_items(self):
+    def test_value_items(self):
         actual_xml = dict2xml.build({
-            'myList': ['alpha', 'bravo']
+            'myList': ['foo', 0, 1.1, True, False, None]
         })
 
         expected_xml = """
             <root>
-                <myList>alpha</myList>
-                <myList>bravo</myList>
+                <myList>foo</myList>
+                <myList>0</myList>
+                <myList>1.1</myList>
+                <myList>true</myList>
+                <myList>false</myList>
+                <myList/>
             </root>
             """
 
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
-    def test_complex_list_items(self):
+    def test_dict_items(self):
         actual_xml = dict2xml.build({
             'myList': [
                 {
