@@ -23,10 +23,8 @@ def _build_element_from_dict(name, dictionary, parent_namespace=None):
     tag = _make_tag(name, namespace)
     element = etree.Element(tag)
 
-    for key, value in dictionary.iteritems():
-        if key == '#ns':
-            pass
-        elif key.startswith('@'):
+    for key, value in _iter_items_except_namespace(dictionary):
+        if key.startswith('@'):
             element.set(key[1:], value)
         elif key == '#text':
             element.text = _convert_to_text(value)
@@ -43,6 +41,12 @@ def _make_tag(name, namespace):
         tag = etree.QName(namespace, name)
 
     return tag
+
+
+def _iter_items_except_namespace(dictionary):
+    for key, value in dictionary.iteritems():
+        if key != '#ns':
+            yield key, value
 
 
 def _add_sub_elements(element, name, value, namespace):
