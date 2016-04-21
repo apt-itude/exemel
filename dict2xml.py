@@ -25,9 +25,9 @@ def _build_element_from_dict(name, dictionary, parent_namespace=None):
 
     for key, value in _iter_items_except_namespace(dictionary):
         if key.startswith('@'):
-            element.set(key[1:], value)
+            _set_attribute(element, key[1:], value)
         elif key == '#text':
-            element.text = _convert_to_text(value)
+            _set_text(element, value)
         else:
             _add_sub_elements(element, key, value, namespace)
 
@@ -42,6 +42,16 @@ def _iter_items_except_namespace(dictionary):
     for key, value in dictionary.iteritems():
         if key != '#ns':
             yield key, value
+
+
+def _set_attribute(element, name, value):
+    if value is not None:
+        element.set(name, _convert_to_text(value))
+
+
+def _set_text(element, value):
+    if value is not None:
+        element.text = _convert_to_text(value)
 
 
 def _add_sub_elements(element, name, value, namespace):
@@ -68,14 +78,12 @@ def _build_elements_from_list(name, list_, parent_namespace):
 def _build_element_from_value(name, value, parent_namespace):
     tag = _make_tag(name, parent_namespace)
     element = etree.Element(tag)
-    element.text = _convert_to_text(value)
+    _set_text(element, value)
     return element
 
 
 def _convert_to_text(value):
-    if value is None:
-        text = None
-    elif isinstance(value, bool):
+    if isinstance(value, bool):
         text = 'true' if value else 'false'
     else:
         text = str(value)

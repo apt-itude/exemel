@@ -206,6 +206,33 @@ class AttributeTestCase(xmlunittest.XmlTestCase):
 
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
+    def test_int_value(self):
+        actual_xml = dict2xml.build({
+            '@test': 0
+        })
+
+        expected_xml = '<root test="0"/>'
+
+        self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
+
+    def test_boolean_value(self):
+        actual_xml = dict2xml.build({
+            '@test': True
+        })
+
+        expected_xml = '<root test="true"/>'
+
+        self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
+
+    def test_none_value(self):
+        actual_xml = dict2xml.build({
+            '@test': None
+        })
+
+        expected_xml = '<root/>'
+
+        self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
+
 
 class NamespaceTestCase(xmlunittest.XmlTestCase):
 
