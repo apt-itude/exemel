@@ -13,6 +13,9 @@ def build(dictionary, root='root'):
 
     Keyword Args:
         root (string): The tag of the root element. Defaults to 'root'.
+
+    Returns:
+        string: An XML document built from the given data structure
     """
     element = _build_element_from_dict(root, dictionary)
 
