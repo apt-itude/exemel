@@ -1,11 +1,14 @@
 from setuptools import setup
 
 setup(
-    name='dict2xml',
+    name='exemel',
     version='0.0.1',
-    description='Converts a dictionary into an XML document',
+    description=(
+        'Build XML documents easily and concisely using native Python data '
+        'structures.'
+    ),
     py_modules=[
-        'dict2xml'
+        'exemel'
     ],
     install_requires=[
         'lxml'

@@ -1,12 +1,12 @@
-# dict2xml
+# exemel
 
 Build XML documents easily and concisely using native Python data structures.
 
 ## Usage
 ```python
-import dict2xml
+import exemel
 
-xml = dict2xml.build({
+xml = exemel.build({
     'name': 'John Doe',
     'address': {
         'street': '1 Main St.',
@@ -47,7 +47,7 @@ Any dictionary-like object (an instance of ``collections.Mapping``) will be conv
 Any key that is not a decorator (see *Decorators*) will add one or more sub-elements.
 
 ```python
-xml = dict2xml.build({
+xml = exemel.build({
     'foo': 'bar'
 })
 ```
@@ -64,7 +64,7 @@ xml = dict2xml.build({
 ordered_dict = collections.OrderedDict()
 ordered_dict['first'] = 1
 ordered_dict['second'] = 2
-xml = dict2xml.build(ordered_dict)
+xml = exemel.build(ordered_dict)
 ```
 
 ```xml
@@ -78,7 +78,7 @@ xml = dict2xml.build(ordered_dict)
 Any non-string iterable (an instance of ``collections.Iterable`` but not ``basestring``) will be converted into ordered sibling XML elements with the same tag. List items may be basic literals or dictionaries (they can be mixed).
 
 ```python
-xml = dict2xml.build({
+xml = exemel.build({
     'myList': [
         'simple',
         0,
@@ -106,7 +106,7 @@ Decorators are special formats used in dictionary keys to add additional propert
 Any key prefixed with the ``@`` character will add an attribute to the element.
 
 ```python
-xml = dict2xml.build({
+xml = exemel.build({
     '@foo': 'bar'
 })
 ```
@@ -121,7 +121,7 @@ If the value is ``None``, the attribute will not be added. Otherwise, the value 
 A key with the value ``#text`` can be used to add text to a complex element that couldn't be specified as just a string.
 
 ```python
-xml = dict2xml.build({
+xml = exemel.build({
     'example': {
         '@foo': 'bar',
         '#text': 'some text'
@@ -141,7 +141,7 @@ If the value is ``None``, no text will be added. Otherwise, the value will be co
 Elements can be given a namespace by using the ``#ns`` decorator. Sub-elements will inherit the parent's namespace unless they specify their own namespace using the ``#ns`` decorator. Using ``None`` as the value sets the default namespace.
 
 ```python
-xml = dict2xml.build({
+xml = exemel.build({
     '#ns': 'foo',
     'one': None,
     'two': {
@@ -167,7 +167,7 @@ Note that the namespace prefixes generated in the resulting XML string will be a
 An element with no text, sub-elements, attributes, or namespace can be created by using ``None`` or an empty dictionary as the value.
 
 ```python
-xml = dict2xml.build({
+xml = exemel.build({
     'none': None,
     'empty': {}
 })

@@ -1,23 +1,23 @@
-"""Unit tests for the dict2xml module"""
+"""Unit tests for the exemel module"""
 
 import unittest
 
 import xmlunittest
 
-import dict2xml
+import exemel
 
 
 class RootElementTestCase(xmlunittest.XmlTestCase):
 
     def test_default_root(self):
-        actual_xml = dict2xml.build({})
+        actual_xml = exemel.build({})
 
         expected_xml = '<root/>'
 
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_custom_root(self):
-        actual_xml = dict2xml.build({}, root='custom')
+        actual_xml = exemel.build({}, root='custom')
 
         expected_xml = '<custom/>'
 
@@ -27,14 +27,14 @@ class RootElementTestCase(xmlunittest.XmlTestCase):
 class DictTestCase(xmlunittest.XmlTestCase):
 
     def test_root_is_empty_dict(self):
-        actual_xml = dict2xml.build({})
+        actual_xml = exemel.build({})
 
         expected_xml = '<root/>'
 
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_keys_become_sub_elements(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'alpha': 'a',
             'bravo': 'b'
         })
@@ -49,7 +49,7 @@ class DictTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_sub_element_is_empty_dict(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'alpha': {}
         })
 
@@ -65,7 +65,7 @@ class DictTestCase(xmlunittest.XmlTestCase):
 class TypesTestCase(xmlunittest.XmlTestCase):
 
     def test_none_value(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'alpha': None,
         })
 
@@ -78,7 +78,7 @@ class TypesTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_int_value(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'alpha': 0,
         })
 
@@ -91,7 +91,7 @@ class TypesTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_float_value(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'alpha': 1.1,
         })
 
@@ -104,7 +104,7 @@ class TypesTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_boolean_values(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'alpha': True,
             'bravo': False
         })
@@ -122,7 +122,7 @@ class TypesTestCase(xmlunittest.XmlTestCase):
 class ListTestCase(xmlunittest.XmlTestCase):
 
     def test_empty_list(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'myList': []
         })
 
@@ -131,7 +131,7 @@ class ListTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_value_items(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'myList': ['foo', 0, 1.1, True, False, None]
         })
 
@@ -149,7 +149,7 @@ class ListTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_dict_items(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'myList': [
                 {
                     'alpha': 0,
@@ -181,7 +181,7 @@ class ListTestCase(xmlunittest.XmlTestCase):
 class AttributeTestCase(xmlunittest.XmlTestCase):
 
     def test_on_root(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '@alpha': 'a',
             '@bravo': 'b'
         })
@@ -191,7 +191,7 @@ class AttributeTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_on_sub_element(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'child': {
                 '@alpha': 'a',
                 '@bravo': 'b'
@@ -207,7 +207,7 @@ class AttributeTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_int_value(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '@test': 0
         })
 
@@ -216,7 +216,7 @@ class AttributeTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_boolean_value(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '@test': True
         })
 
@@ -225,7 +225,7 @@ class AttributeTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_none_value(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '@test': None
         })
 
@@ -237,7 +237,7 @@ class AttributeTestCase(xmlunittest.XmlTestCase):
 class NamespaceTestCase(xmlunittest.XmlTestCase):
 
     def test_on_root(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '#ns': 'fake:ns'
         })
 
@@ -246,7 +246,7 @@ class NamespaceTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_on_sub_element(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'child': {
                 '#ns': 'fake:ns'
             }
@@ -261,7 +261,7 @@ class NamespaceTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_inherited(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '#ns': 'fake:ns',
             'child': None
         })
@@ -275,7 +275,7 @@ class NamespaceTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_not_inherited(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '#ns': 'fake:ns',
             'child': {
                 '#ns': None
@@ -291,7 +291,7 @@ class NamespaceTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_list_items_different_namespaces(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'myList': [
                 {
                     '#ns': 'first:ns'
@@ -315,7 +315,7 @@ class NamespaceTestCase(xmlunittest.XmlTestCase):
 class TextTestCase(xmlunittest.XmlTestCase):
 
     def test_on_root(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '#text': 'foo'
         })
 
@@ -324,7 +324,7 @@ class TextTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_on_sub_element(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'child': {
                 '#text': 'foo'
             }
@@ -339,7 +339,7 @@ class TextTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_int_value(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '#text': 0
         })
 
@@ -348,7 +348,7 @@ class TextTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_float_value(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '#text': 1.1
         })
 
@@ -357,7 +357,7 @@ class TextTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_boolean_values(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'child': [
                 {
                     '#text': True
@@ -378,7 +378,7 @@ class TextTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_none_value(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             '#text': None
         })
 
@@ -387,7 +387,7 @@ class TextTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_text_and_sub_elements(self):
-        actual_xml = dict2xml.build({
+        actual_xml = exemel.build({
             'alpha': None,
             '#text': 'foo',
             'bravo': None
