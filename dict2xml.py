@@ -5,10 +5,15 @@ import collections
 from lxml import etree
 
 
-def build(dictionary, root=None):
-    if root is None:
-        root = 'root'
+def build(dictionary, root='root'):
+    """Builds an XML document from a dictionary-like object
 
+    Args:
+        dictionary (collections.Mapping): The structure to be converted
+
+    Keyword Args:
+        root (string): The tag of the root element. Defaults to 'root'.
+    """
     element = _build_element_from_dict(root, dictionary)
 
     return etree.tostring(element)
@@ -59,14 +64,14 @@ def _add_sub_elements(element, name, value, namespace):
         element.append(_build_element_from_dict(name, value, namespace))
     elif (isinstance(value, collections.Iterable) and
           not isinstance(value, basestring)):
-        for sub_elem in _build_elements_from_list(name, value, namespace):
+        for sub_elem in _build_elements_from_iterable(name, value, namespace):
             element.append(sub_elem)
     else:
         element.append(_build_element_from_value(name, value, namespace))
 
 
-def _build_elements_from_list(name, list_, parent_namespace):
-    for item in list_:
+def _build_elements_from_iterable(name, iterable, parent_namespace):
+    for item in iterable:
         if isinstance(item, collections.Mapping):
             element = _build_element_from_dict(name, item, parent_namespace)
         else:
