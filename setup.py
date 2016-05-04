@@ -7,6 +7,10 @@ setup(
         'Build XML documents easily and concisely using native Python data '
         'structures.'
     ),
+    url='https://github.com/aptbosox/exemel',
+    author='Alexander Thompson',
+    author_email='aptbosox@gmail.com',
+    license='MIT',
     py_modules=[
         'exemel'
     ],
