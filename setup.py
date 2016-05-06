@@ -11,6 +11,14 @@ setup(
     author='Alexander Thompson',
     author_email='aptbosox@gmail.com',
     license='MIT',
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries :: Python Modules'
+    ],
     py_modules=[
         'exemel'
     ],
