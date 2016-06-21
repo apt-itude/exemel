@@ -1,5 +1,6 @@
 """Unit tests for the exemel module"""
 
+import collections
 import unittest
 
 import xmlunittest
@@ -34,10 +35,11 @@ class DictTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_keys_become_sub_elements(self):
-        actual_xml = exemel.build({
-            'alpha': 'a',
-            'bravo': 'b'
-        })
+        dictionary = collections.OrderedDict()
+        dictionary['alpha'] = 'a'
+        dictionary['bravo'] = 'b'
+
+        actual_xml = exemel.build(dictionary)
 
         expected_xml = """
             <root>
@@ -104,10 +106,11 @@ class TypesTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_boolean_values(self):
-        actual_xml = exemel.build({
-            'alpha': True,
-            'bravo': False
-        })
+        dictionary = collections.OrderedDict()
+        dictionary['alpha'] = True
+        dictionary['bravo'] = False
+
+        actual_xml = exemel.build(dictionary)
 
         expected_xml = """
             <root>
@@ -149,17 +152,16 @@ class ListTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_dict_items(self):
+        item1 = collections.OrderedDict()
+        item1['alpha'] = 0
+        item1['bravo'] = 1
+
+        item2 = collections.OrderedDict()
+        item2['alpha'] = 2
+        item2['bravo'] = 3
+
         actual_xml = exemel.build({
-            'myList': [
-                {
-                    'alpha': 0,
-                    'bravo': 1
-                },
-                {
-                    'alpha': 2,
-                    'bravo': 3
-                }
-            ]
+            'myList': [item1, item2]
         })
 
         expected_xml = """
@@ -387,11 +389,12 @@ class TextTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
     def test_text_and_sub_elements(self):
-        actual_xml = exemel.build({
-            'alpha': None,
-            '#text': 'foo',
-            'bravo': None
-        })
+        dictionary = collections.OrderedDict()
+        dictionary['alpha'] = None
+        dictionary['#text'] = 'foo'
+        dictionary['bravo'] = None
+
+        actual_xml = exemel.build(dictionary)
 
         expected_xml = """
             <root>
