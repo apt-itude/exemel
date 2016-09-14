@@ -3,6 +3,7 @@
 import collections
 import unittest
 
+from lxml import etree
 import xmlunittest
 
 import exemel
@@ -178,6 +179,63 @@ class ListTestCase(xmlunittest.XmlTestCase):
             """
 
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
+
+
+class EtreeElementTestCase(xmlunittest.XmlTestCase):
+
+    def setUp(self):
+        tag = etree.QName('test:ns', 'existing-element')
+        self.existing_element = etree.Element(tag)
+        self.existing_element.text = 'test-value'
+
+    def test_in_dict_matching_name(self):
+
+        actual_xml = exemel.build({
+            'existing-element': self.existing_element
+        })
+
+        expected_xml = """
+            <root>
+                <existing-element xmlns="test:ns">test-value</existing-element>
+            </root>
+            """
+
+        self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
+
+    def test_in_dict_mismatched_name(self):
+        with self.assertRaises(exemel.MismatchedElementNameError):
+            exemel.build({
+                'mismatched-name': self.existing_element
+            })
+
+    def test_in_list_matching_name(self):
+        actual_xml = exemel.build({
+            'existing-element': [
+                'foo',
+                self.existing_element,
+                'bar'
+            ]
+        })
+
+        expected_xml = """
+            <root>
+                <existing-element>foo</existing-element>
+                <existing-element xmlns="test:ns">test-value</existing-element>
+                <existing-element>bar</existing-element>
+            </root>
+            """
+
+        self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
+
+    def test_in_list_mismatched_name(self):
+        with self.assertRaises(exemel.MismatchedElementNameError):
+            exemel.build({
+                'mismatched-name': [
+                    'foo',
+                    self.existing_element,
+                    'bar'
+                ]
+            })
 
 
 class AttributeTestCase(xmlunittest.XmlTestCase):

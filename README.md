@@ -99,6 +99,61 @@ xml = exemel.build({
 
 **NOTE:** Similarly to dictionaries, the order of the elements in the resulting XML string is dependent on the type of iterable. For example, an ordered iterable like a ``list`` will result ordered elements, but an unordered iterable like a ``set`` will result in unordered elements.
 
+### Elements
+Any ``lxml.etree.Element`` instance used as a value in a ``Mapping`` or an item in an ``Iterable`` will be added to the document as-is.
+
+Within a ``Mapping``:
+
+```python
+my_element = etree.Element('myElement')
+my_element.text = 'my-text'
+
+xml = exemel.build({
+    'myElement': my_element
+})
+```
+
+```xml
+<root>
+    <myElement>my-text</myElement>
+</root>
+```
+
+Within an ``Iterable``:
+
+```python
+my_element = etree.Element('myList')
+my_element.text = 'my-text'
+
+xml = exemel.build({
+    'myList': [
+        'foo',
+        my_element,
+        'bar'
+    ]
+})
+```
+
+```xml
+<root>
+    <myList>foo</myList>
+    <myList>my-text</myList>
+    <myList>bar</myList>
+</root>
+```
+
+**NOTE:** If the name of the ``Element`` instance does not match the expected name, ``exemel.MismatchedElementNameError`` will be raised. E.g.:
+
+```python
+exemel.build({
+    'oneName': etree.Element('anotherName')
+})
+```
+
+would result in the following exception:
+
+``exemel.MismatchedElementNameError: Element with name 'anotherName' was added where name 'oneName' was expected``
+
 ### Decorators
 Decorators are special formats used in dictionary keys to add additional properties to an element.
 

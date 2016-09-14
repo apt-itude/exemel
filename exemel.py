@@ -5,6 +5,11 @@ import collections
 from lxml import etree
 
 
+class Error(Exception):
+
+    """Base exception class for exemel errors"""
+
+
 def build(dictionary, root='root'):
     """Builds an XML document from a dictionary-like object
 
@@ -63,7 +68,10 @@ def _set_text(element, value):
 
 
 def _add_sub_elements(element, name, value, namespace):
-    if isinstance(value, collections.Mapping):
+    if etree.iselement(value):
+        _validate_element_name(value, name)
+        element.append(value)
+    elif isinstance(value, collections.Mapping):
         element.append(_build_element_from_dict(name, value, namespace))
     elif (isinstance(value, collections.Iterable) and
           not isinstance(value, basestring)):
@@ -75,7 +83,10 @@ def _add_sub_elements(element, name, value, namespace):
 
 def _build_elements_from_iterable(name, iterable, parent_namespace):
     for item in iterable:
-        if isinstance(item, collections.Mapping):
+        if etree.iselement(item):
+            _validate_element_name(item, name)
+            element = item
+        elif isinstance(item, collections.Mapping):
             element = _build_element_from_dict(name, item, parent_namespace)
         else:
             element = _build_element_from_value(name, item, parent_namespace)
@@ -97,3 +108,17 @@ def _convert_to_text(value):
         text = str(value)
 
     return text
+
+
+def _validate_element_name(element, expected_name):
+    actual_name = etree.QName(element.tag).localname
+    if actual_name != expected_name:
+        raise MismatchedElementNameError(expected_name, actual_name)
+
+
+class MismatchedElementNameError(Error):
+
+    def __init__(self, expected_name, actual_name):
+        super(MismatchedElementNameError, self).__init__(
+            "Element with name '{}' was added where name '{}' was "
+            "expected".format(actual_name, expected_name))
