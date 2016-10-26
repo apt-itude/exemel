@@ -23,6 +23,7 @@ setup(
         'exemel'
     ],
     install_requires=[
+        'future>=0.15.2',
         'lxml>=3.0'
     ]
 )

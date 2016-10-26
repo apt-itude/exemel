@@ -2,6 +2,7 @@
 
 import collections
 
+from future.utils import iteritems
 from lxml import etree
 
 
@@ -52,7 +53,7 @@ def _make_tag(name, namespace):
 
 
 def _iter_items_except_namespace(dictionary):
-    for key, value in dictionary.iteritems():
+    for key, value in iteritems(dictionary):
         if key != '#ns':
             yield key, value
 
@@ -74,7 +75,7 @@ def _add_sub_elements(element, name, value, namespace):
     elif isinstance(value, collections.Mapping):
         element.append(_build_element_from_dict(name, value, namespace))
     elif (isinstance(value, collections.Iterable) and
-          not isinstance(value, basestring)):
+          not isinstance(value, str)):
         for sub_elem in _build_elements_from_iterable(name, value, namespace):
             element.append(sub_elem)
     else:
