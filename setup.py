@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='exemel',
-    version='0.1.2',
+    version='0.2.0',
     description=(
         'Build XML documents easily and concisely using native Python data '
         'structures.'
@@ -17,12 +17,17 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5',
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     py_modules=[
         'exemel'
     ],
     install_requires=[
+        'future>=0.15.2',
         'lxml>=3.0'
     ]
 )
