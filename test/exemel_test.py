@@ -465,5 +465,16 @@ class TextTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
 
+class BuildElementTestCase(xmlunittest.XmlTestCase):
+
+    def test_build_element(self):
+        actual_element = exemel.build_element({})
+        actual_xml = etree.tostring(actual_element)
+
+        expected_xml = '<root/>'
+
+        self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
+
+
 if __name__ == '__main__':
     unittest.main()

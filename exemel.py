@@ -12,7 +12,7 @@ class Error(Exception):
 
 
 def build(dictionary, root='root'):
-    """Builds an XML document from a dictionary-like object
+    """Builds an XML element from a dictionary-like object
 
     Args:
         dictionary (collections.Mapping): The structure to be converted
@@ -21,11 +21,26 @@ def build(dictionary, root='root'):
         root (string): The tag of the root element. Defaults to 'root'.
 
     Returns:
-        string: An XML document built from the given data structure
+        string: An XML element built from the given data structure
     """
     element = _build_element_from_dict(root, dictionary)
 
     return etree.tostring(element)
+
+
+def build_element(dictionary, root='root'):
+    """Builds an XML element from a dictionary-like object
+
+    Args:
+        dictionary (collections.Mapping): The structure to be converted
+
+    Keyword Args:
+        root (string): The tag of the root element. Defaults to 'root'.
+
+    Returns:
+        lxml.etree._Element: An XML element built from the given data structure
+    """
+    return _build_element_from_dict(root, dictionary)
 
 
 def _build_element_from_dict(name, dictionary, parent_namespace=None):

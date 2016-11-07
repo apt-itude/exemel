@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='exemel',
-    version='0.2.0',
+    version='0.2.1',
     description=(
         'Build XML documents easily and concisely using native Python data '
         'structures.'

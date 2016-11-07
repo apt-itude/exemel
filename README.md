@@ -241,5 +241,9 @@ For attributes and text nodes, values will be converted to text as follows:
 * If the type is a boolean, values equal to ``True`` will become 'true', and values equal to ``False`` will become 'false'
 * All other types will attempt to be converted using the ``str`` function
 
+
+### Building an lxml.etree._Element instance
+If you would like to use the [lxml.etree API](http://lxml.de/) directly, you can build an ``lxml.etree._Element`` instance instead of a string by using ``exemel.build_element()``. It's function signature is identical to that of ``exemel.build()``.
+
 ## Credit
 This library was inspired by [xmlbuilder-js](https://github.com/oozcitak/xmlbuilder-js).
