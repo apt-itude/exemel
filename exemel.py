@@ -11,21 +11,24 @@ class Error(Exception):
     """Base exception class for exemel errors"""
 
 
-def build(dictionary, root='root'):
+def build(dictionary, root='root', encoding=None):
     """Builds an XML element from a dictionary-like object
 
     Args:
         dictionary (collections.Mapping): The structure to be converted
 
     Keyword Args:
-        root (string): The tag of the root element. Defaults to 'root'.
+        root (string):     The tag of the root element. Defaults to 'root'.
+
+        encoding (string): The encoding of the resulting string. Defaults to
+                           a byte string.
 
     Returns:
         string: An XML element built from the given data structure
     """
     element = _build_element_from_dict(root, dictionary)
 
-    return etree.tostring(element)
+    return etree.tostring(element, encoding=encoding)
 
 
 def build_element(dictionary, root='root'):
