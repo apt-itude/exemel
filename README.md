@@ -39,7 +39,7 @@ The return value would be an XML string equivalent to:
 </contact>
 ```
 
-The ``build`` function accepts a single positional argument: the dictionary-like object to convert into the root element. It also accepts a single keyword argument, ``root``, which can be used to supply a tag for the root element. If the ``root`` argument is not provided, the root element will be named 'root'.
+The ``build`` function accepts a single positional argument: the dictionary-like object to convert into the root element. It also accepts two keyword arguments. The first, ``root``, can be used to supply a tag for the root element. If the argument is not provided, the root element will be named 'root'. The second, ``encoding``, determines the encoding of the resulting string. It defaults to a byte string if no argument is provided.
 
 ### Dictionaries
 Any dictionary-like object (an instance of ``collections.Mapping``) will be converted into an XML element. Each key in the dictionary is used to add sub-elements, attributes, or other properties to that element.

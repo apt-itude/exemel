@@ -26,6 +26,34 @@ class RootElementTestCase(xmlunittest.XmlTestCase):
         self.assertXmlEquivalentOutputs(actual_xml, expected_xml)
 
 
+class BuildEncodingTestCase(unittest.TestCase):
+
+    def test_default_encoding(self):
+        actual_xml = exemel.build({})
+
+        if _is_python2():
+            assert isinstance(actual_xml, basestring)
+        else:
+            assert isinstance(actual_xml, bytes)
+
+    def test_unicode_encoding(self):
+        actual_xml = exemel.build({}, encoding='unicode')
+
+        if _is_python2():
+            assert isinstance(actual_xml, unicode)
+        else:
+            assert isinstance(actual_xml, str)
+
+
+def _is_python2():
+    try:
+        basestring
+    except NameError:
+        return False
+    else:
+        return True
+
+
 class DictTestCase(xmlunittest.XmlTestCase):
 
     def test_root_is_empty_dict(self):
