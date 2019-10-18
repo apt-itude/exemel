@@ -2,6 +2,12 @@
 
 import collections
 
+try:
+    import collections.abc as abc
+except ImportError:
+    # python2.7 does not have the abc module
+    abc = collections
+
 from future.utils import iteritems
 from lxml import etree
 
@@ -15,7 +21,7 @@ def build(dictionary, root='root', encoding=None):
     """Builds an XML element from a dictionary-like object
 
     Args:
-        dictionary (collections.Mapping): The structure to be converted
+        dictionary (collections.abc.Mapping): The structure to be converted
 
     Keyword Args:
         root (string):     The tag of the root element. Defaults to 'root'.
@@ -35,7 +41,7 @@ def build_element(dictionary, root='root'):
     """Builds an XML element from a dictionary-like object
 
     Args:
-        dictionary (collections.Mapping): The structure to be converted
+        dictionary (collections.abc.Mapping): The structure to be converted
 
     Keyword Args:
         root (string): The tag of the root element. Defaults to 'root'.
@@ -90,9 +96,9 @@ def _add_sub_elements(element, name, value, namespace):
     if etree.iselement(value):
         _validate_element_name(value, name)
         element.append(value)
-    elif isinstance(value, collections.Mapping):
+    elif isinstance(value, abc.Mapping):
         element.append(_build_element_from_dict(name, value, namespace))
-    elif (isinstance(value, collections.Iterable) and
+    elif (isinstance(value, abc.Iterable) and
           not isinstance(value, str)):
         for sub_elem in _build_elements_from_iterable(name, value, namespace):
             element.append(sub_elem)
@@ -105,7 +111,7 @@ def _build_elements_from_iterable(name, iterable, parent_namespace):
         if etree.iselement(item):
             _validate_element_name(item, name)
             element = item
-        elif isinstance(item, collections.Mapping):
+        elif isinstance(item, abc.Mapping):
             element = _build_element_from_dict(name, item, parent_namespace)
         else:
             element = _build_element_from_value(name, item, parent_namespace)
