@@ -2,6 +2,8 @@
 
 Build XML documents easily and concisely using native Python data structures.
 
+[![Build Status](https://travis-ci.org/apt-itude/exemel.svg?branch=master)](https://travis-ci.org/apt-itude/exemel)
+
 ## Usage
 ```python
 import exemel
