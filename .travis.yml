@@ -1,10 +1,19 @@
 language: python
 python:
-    - "2.7"
-    - "3.5"
-    - "3.6"
-    - "3.7"
-    - "3.8"
+  - '2.7'
+  - '3.5'
+  - '3.6'
+  - '3.7'
+  - '3.8'
 install:
-    - pip install tox-travis
+  - pip install tox-travis
 script: tox
+deploy:
+  on:
+    python: '3.8'
+    tags: true
+  distributions: sdist bdist_wheel
+  provider: pypi
+  user: aptbosox
+  password:
+    secure: g+ZCCcx2UwJfecjihDgrAJi/lz/NBIPLbrFQ3pqw5uB3uwGywcFfWlfNLsByA2oL6maZkheThl/x7JdLUh8aVZlCpEx9ofJOFW59rrtX2qXOkLN+awA5HQJ+162348WzisC6ck/lDD/Th3CjjGN1NPMU0RWLrbBWNYUNBl6vBMdZQkT7UQ7nYzt6RESVu3CoV+dJo0FhCemXImiy98Vzj2VvDYFJUn1SzC7hi2z7O0S4ZYFMxYuEcn0prGATejm9jrgnUOcEGsb02h/YEHULinYQj8SU+fP5YTtT98Ai8UMOEX1Bi65V9FMISGZooifCH6RygraDwCjFkMHNKp/4N1qg8wPUqRUI0g+p8856vXkj/Q9BbvD35mk8rxjLYmy51HK2E5k6T8ySLUfN7A5Tz1tiEJVag9nmI6wc/2MZpFwNpCaY4afsAyXHJQ4uSwa/3eRPl7pLvvXJaWiyiz+xi0EmTT3loHhEPfGQS4dTEbURmpem1WpOXQjB8hsnKjFpayF1GV9VnMjqkKQsTHbht9sfyDVM7mpQz/fmozMCBztnxSEHRFMd2+/Wt56g8eWljlDn6rDAB1UB6DG2Ve+ZMhLhvrOASzTI8/k6V96M1i6wg6mPsDCmezvfdApfmTJWhTR9IDJG2FLSmKzitssk9m5sgQb8kCBfeOipMtkvLP0=
