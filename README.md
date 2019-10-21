@@ -42,7 +42,7 @@ The return value would be an XML string equivalent to:
 The ``build`` function accepts a single positional argument: the dictionary-like object to convert into the root element. It also accepts two keyword arguments. The first, ``root``, can be used to supply a tag for the root element. If the argument is not provided, the root element will be named 'root'. The second, ``encoding``, determines the encoding of the resulting string. It defaults to a byte string if no argument is provided.
 
 ### Dictionaries
-Any dictionary-like object (an instance of ``collections.Mapping``) will be converted into an XML element. Each key in the dictionary is used to add sub-elements, attributes, or other properties to that element.
+Any dictionary-like object (an instance of ``collections.abc.Mapping``) will be converted into an XML element. Each key in the dictionary is used to add sub-elements, attributes, or other properties to that element.
 
 Any key that is not a decorator (see *Decorators*) will add one or more sub-elements.
 
@@ -75,7 +75,7 @@ xml = exemel.build(ordered_dict)
 ```
 
 ### Iterables
-Any non-string iterable (an instance of ``collections.Iterable`` but not ``basestring``) will be converted into ordered sibling XML elements with the same tag. List items may be basic literals or dictionaries (they can be mixed).
+Any non-string iterable (an instance of ``collections.abc.Iterable`` but not ``basestring``) will be converted into ordered sibling XML elements with the same tag. List items may be basic literals or dictionaries (they can be mixed).
 
 ```python
 xml = exemel.build({
